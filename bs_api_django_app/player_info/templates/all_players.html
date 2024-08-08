@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<hmtl>
+    <body>
+
+        <h1>Players</h1>
+
+        <ul>
+            {% for x in myplayers %}
+                <li>{{ x.player_name}} {{ x.player_id }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</hmtl>
