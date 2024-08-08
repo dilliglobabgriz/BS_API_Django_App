@@ -10,3 +10,10 @@ def player_info(request):
     }
     return HttpResponse(template.render(context, request))
 
+def details(request, id):
+    myplayer = Player.objects.get(id=id)
+    template = loader.get_template('details.html')
+    context = {
+        'myplayer': myplayer,
+    }
+    return HttpResponse(template.render(context, request))

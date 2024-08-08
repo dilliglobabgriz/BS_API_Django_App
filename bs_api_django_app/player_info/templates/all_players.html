@@ -6,7 +6,7 @@
 
         <ul>
             {% for x in myplayers %}
-                <li>{{ x.player_name}} {{ x.player_id }}</li>
+                <li><a href='details/{{ x.id }}'>{{ x.player_name}} {{ x.player_id }}</a></li>
             {% endfor %}
         </ul>
     </body>
