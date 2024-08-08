@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<hmtl>
-    <body>
+{% extends "master.html" %}
 
-        <h1>Players</h1>
+{% block title %}
+    Brawl Stars Club - List of all members
+{% endblock %}
 
-        <ul>
-            {% for x in myplayers %}
-                <li><a href='details/{{ x.id }}'>{{ x.player_name}} {{ x.player_id }}</a></li>
-            {% endfor %}
-        </ul>
-    </body>
-</hmtl>
+{% block content %}
+    <h1>Players</h1>
+    <ul>
+        {% for x in myplayers %}
+            <li><a href='details/{{ x.id }}'>{{ x.player_name}} {{ x.player_id }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

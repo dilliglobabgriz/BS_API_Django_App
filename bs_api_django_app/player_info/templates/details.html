@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html>
-    <body>
-        <h1>{{ myplayer.player_name }} {{myplayer.player_id }}</h1>
+{% extends "master.html" %}
 
-        <p>Bralwers: unlocked/total</p>
-        <p>Star Powers: sps/164</p>
-        <p>Gadgets: gds/164</p>
+{% block title %}
+    {{ myplayer.player_name }} {{myplayer.player_id }}
+{% endblock %}
 
-        <p>Back to <a href='/player_info'>All Players</a></p>
-    </body>
-</html>
+{% block content %}
+    <h1>{{ myplayer.player_name }}'s account --- id: #{{myplayer.player_id }}</h1>
+
+    <p>Bralwers: unlocked/total</p>
+    <p>Star Powers: sps/164</p>
+    <p>Gadgets: gds/164</p>
+
+    <p>Back to <a href='/player_info'>All Players</a></p>
+{% endblock %}
