@@ -8,8 +8,9 @@
     <h1>{{ myplayer.player_name }}'s account --- id: #{{myplayer.player_id }}</h1>
 
     <p>Bralwers: unlocked/total</p>
-    <p>Star Powers: sps/164</p>
-    <p>Gadgets: gds/164</p>
+    <p>Star Powers: {{ playerapi.get_total_star_powers }}/164</p>
+    <p>Gadgets: {{ playerapi.get_total_gadgets }}/164</p>
+    <p>Gears: {{ playerapi.get_total_gears }}</p>
 
     <p>Back to <a href='/player_info'>All Players</a></p>
 {% endblock %}
