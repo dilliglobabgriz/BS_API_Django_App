@@ -27,10 +27,26 @@ def main(request):
     return HttpResponse(template.render())
 
 def top_global(request):
-    rankingsapi = Api_Request()
-    topglobalplayerstags = rankingsapi.get_leaderboard_player_tags()
+    try:   
+        rankingsapi = Api_Request()
+        players = rankingsapi.get_leaderboard_player_tags()
+        print(players)
+    except UnicodeDecodeError as e:
+        return HttpResponse(f'Encoding error: {str(e)}, status = 500')
+    except Exception as e:
+        players = []
+        print(f'Error occurred: {str(e)}')
+
     template = loader.get_template('top_global.html')
     context = {
-        'topglobalplayerstags': topglobalplayerstags,
+        'rankingsapi': rankingsapi,
+        'players': players,
+    }
+    return HttpResponse(template.render(context, request))
+
+def testing(request):
+    template = loader.get_template('template.html')
+    context = {
+        'fruits': ['Apple', 'Banana', 'Cherry'],
     }
     return HttpResponse(template.render(context, request))
