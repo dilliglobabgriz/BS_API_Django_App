@@ -25,3 +25,12 @@ def details(request, id):
 def main(request):
     template = loader.get_template('main.html')
     return HttpResponse(template.render())
+
+def top_global(request):
+    rankingsapi = Api_Request()
+    topglobalplayerstags = rankingsapi.get_leaderboard_player_tags()
+    template = loader.get_template('top_global.html')
+    context = {
+        'topglobalplayerstags': topglobalplayerstags,
+    }
+    return HttpResponse(template.render(context, request))

@@ -35,6 +35,20 @@ class Api_Request:
         player_endpoint: str = self.get_player_info_endpoint()
         return self.call_api(player_endpoint)
     
+    def get_global_rankings_info(self, top_n_players: int=10) -> List[Dict[str, Any]]:
+        rankings_endpoint: str = f'rankings/global/players?limit={top_n_players}'
+        rankings_data = self.call_api(rankings_endpoint)
+        if rankings_data is None or 'items' not in rankings_data:
+            raise Exception(f'Failed to fetch leaderboards top {top_n_players}')
+        return rankings_data.get('items')
+    
+    def get_leaderboard_player_tags(self, top_n_players: int=10) -> List[str]:
+        player_tags: List[str] = []
+        rankings_data = self.get_global_rankings_info(top_n_players)
+        for player in rankings_data:
+            player_tags.append(player['tag'])
+        return player_tags
+
     def get_general_brawler_info(self) -> List[Dict[str, Any]]:
         brawlers_endpoint: str = 'brawlers'
         brawlers_json = self.call_api(brawlers_endpoint)
@@ -101,3 +115,11 @@ class Api_Request:
         gadget_total: int = self.get_total_brawlers() * 2
         return gadget_total
         
+    def get_total_trophies(self) -> int:
+        player_info = self.get_player_info()
+        return player_info.get('trophies')
+
+    # Could add name color as feature
+    def get_gamer_tag(self) -> str:
+        player_info = self.get_player_info()
+        return player_info.get('name')
