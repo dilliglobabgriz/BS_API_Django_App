@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import Player
 from player_info.api.make_requests import Api_Request
+from typing import List
 
 def player_info(request):
     myplayers = Player.objects.all().values()
@@ -41,7 +42,7 @@ def main(request):
 def top_global(request):
     try:   
         rankingsapi = Api_Request()
-        players = rankingsapi.get_leaderboard_player_tags()
+        players: List[str] = rankingsapi.get_leaderboard_player_tags()
     except UnicodeDecodeError as e:
         return HttpResponse(f'Encoding error: {str(e)}, status = 500')
     except Exception as e:
@@ -49,12 +50,19 @@ def top_global(request):
         #print(f'Error occurred: {str(e)}')
         
     # Remove leading "#"
+    # Should add formatting method to ApiRequests
     formatted_players = [s[1:] for s in players]
+
+    player_names: List[str] = []
+    for player in formatted_players:
+        rankingsapi.set_player_tag(player)
+        player_names.append(rankingsapi.get_gamer_tag())
 
     template = loader.get_template('top_global.html')
     context = {
         'rankingsapi': rankingsapi,
         'players': formatted_players,
+        'player_names': player_names,
     }
     return HttpResponse(template.render(context, request))
 
