@@ -123,3 +123,6 @@ class Api_Request:
     def get_gamer_tag(self) -> str:
         player_info = self.get_player_info()
         return player_info.get('name')
+    
+    def get_unlocked_brawlers(self) -> int:
+        return len(self.get_all_brawlers_info())

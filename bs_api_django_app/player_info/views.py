@@ -13,7 +13,10 @@ def player_info(request):
 
 def details(request, id):
     playerapi = Api_Request()
-    myplayer = Player.objects.get(id=id)
+    try:
+        myplayer = Player.objects.get(id=id)
+    except Player.DoesNotExist:
+        myplayer = None
     playerapi.set_player_tag(myplayer.player_id)
     template = loader.get_template('details.html')
     context = {
