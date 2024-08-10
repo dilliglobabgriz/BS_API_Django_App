@@ -11,7 +11,7 @@ def player_info(request):
     }
     return HttpResponse(template.render(context, request))
 
-def details(request, id):
+def details(request, id: int):
     playerapi = Api_Request()
     try:
         myplayer = Player.objects.get(id=id)
@@ -25,6 +25,15 @@ def details(request, id):
     }
     return HttpResponse(template.render(context, request))
 
+def details_general(request, id: str):
+    playerapi = Api_Request()
+    playerapi.set_player_tag(id)
+    template = loader.get_template('details_general.html')
+    context = {
+        'playerapi': playerapi,
+    }
+    return HttpResponse(template.render(context, request))
+
 def main(request):
     template = loader.get_template('main.html')
     return HttpResponse(template.render())
@@ -33,17 +42,19 @@ def top_global(request):
     try:   
         rankingsapi = Api_Request()
         players = rankingsapi.get_leaderboard_player_tags()
-        print(players)
     except UnicodeDecodeError as e:
         return HttpResponse(f'Encoding error: {str(e)}, status = 500')
     except Exception as e:
         players = []
-        print(f'Error occurred: {str(e)}')
+        #print(f'Error occurred: {str(e)}')
+        
+    # Remove leading "#"
+    formatted_players = [s[1:] for s in players]
 
     template = loader.get_template('top_global.html')
     context = {
         'rankingsapi': rankingsapi,
-        'players': players,
+        'players': formatted_players,
     }
     return HttpResponse(template.render(context, request))
 

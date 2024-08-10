@@ -1,0 +1,20 @@
+{% extends "master.html" %}
+
+{% block title %}
+    {{ playerapi.get_gamer_tag }}
+{% endblock %}
+
+{% block content %}
+    
+    <h1>Account: #{{ playerapi.player_tag }} </h1>
+    
+
+    <p>Name: {{ playerapi.get_gamer_tag }}</p>
+    <p>Trophies: {{ playerapi.get_total_trophies }}</p>
+    <p>Bralwers: {{ playerapi.get_unlocked_brawlers }}/{{ playerapi.get_total_brawlers }}</p>
+    <p>Star Powers: {{ playerapi.get_total_star_powers }}/164</p>
+    <p>Gadgets: {{ playerapi.get_total_gadgets }}/164</p>
+    <p>Gears: {{ playerapi.get_total_gears }}</p>
+
+    <p>Back to <a href='/top_global'>Leaderboard</a></p>
+{% endblock %}

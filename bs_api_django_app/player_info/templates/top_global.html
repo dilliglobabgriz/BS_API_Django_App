@@ -9,7 +9,7 @@
 
     <ul>
         {% for player in players %}
-            <li>{{ player }}</li>
+            <li><a href='details_general/{{ player }}'>{{ player }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}
